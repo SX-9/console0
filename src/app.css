@@ -6,3 +6,4 @@ html { @apply text-white h-full; }
 body { @apply bg-gray-950 bg-no-repeat bg-center bg-cover h-full; }
 
 input, button { @apply bg-gray-800 text-white px-1 py-0.5 my-1; }
+a { @apply underline text-sky-300; }

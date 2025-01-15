@@ -15,9 +15,10 @@ export type Dynamic = {
     disk: { disk: string, size: number, used: number, avail: number, usedP: string, mount: string }[];
 }
 
-export async function run(this: NodeSSH, cmd: string, args: string[] = []) {
-    return await this.exec(cmd, args, { stream: "stdout" }).catch((e) => {
+export async function run(this: { ssh: NodeSSH, error?: (e: string) => any }, cmd: string, args: string[] = []) {
+    return await this.ssh.exec(cmd, args, { stream: "stdout" }).catch((e) => {
         const ret = `Error while executing "${cmd}${args ? ' ' + args.join(' ') : ''}": ${e.message}`;
+        this.error?.(ret);
         console.error(ret);
         return ret;
     });
